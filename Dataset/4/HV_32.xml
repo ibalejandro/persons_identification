@@ -1,0 +1,36 @@
+<annotation>
+    <folder>4</folder>
+    <filename>HV_32.jpg</filename>
+    <size>
+        <width>1040</width>
+        <height>780</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>6</xmin>
+            <ymin>264</ymin>
+            <xmax>221</xmax>
+            <ymax>551</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>HV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>435</xmin>
+            <ymin>66</ymin>
+            <xmax>908</xmax>
+            <ymax>779</ymax>
+        </bndbox>
+    </object>
+</annotation>

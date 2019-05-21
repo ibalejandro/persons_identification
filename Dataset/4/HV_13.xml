@@ -1,0 +1,23 @@
+<annotation>
+    <folder>4</folder>
+    <filename>HV_13.jpeg</filename>
+    <size>
+        <width>1200</width>
+        <height>1600</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>HV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>258</xmin>
+            <ymin>303</ymin>
+            <xmax>862</xmax>
+            <ymax>995</ymax>
+        </bndbox>
+    </object>
+</annotation>

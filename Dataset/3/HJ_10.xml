@@ -1,0 +1,23 @@
+<annotation>
+    <folder>3</folder>
+    <filename>HJ_10.jpeg</filename>
+    <size>
+        <width>728</width>
+        <height>744</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>HJ</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>183</xmin>
+            <ymin>11</ymin>
+            <xmax>728</xmax>
+            <ymax>744</ymax>
+        </bndbox>
+    </object>
+</annotation>

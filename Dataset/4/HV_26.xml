@@ -1,0 +1,36 @@
+<annotation>
+    <folder>4</folder>
+    <filename>HV_26.jpg</filename>
+    <size>
+        <width>3096</width>
+        <height>4128</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>HV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1063</xmin>
+            <ymin>2688</ymin>
+            <xmax>1222</xmax>
+            <ymax>3139</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>HV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>2067</xmin>
+            <ymin>2265</ymin>
+            <xmax>2213</xmax>
+            <ymax>2596</ymax>
+        </bndbox>
+    </object>
+</annotation>

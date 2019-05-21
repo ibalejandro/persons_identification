@@ -1,0 +1,36 @@
+<annotation>
+    <folder>3</folder>
+    <filename>HJ_13.jpg</filename>
+    <size>
+        <width>960</width>
+        <height>1280</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>HJ</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>386</xmin>
+            <ymin>367</ymin>
+            <xmax>558</xmax>
+            <ymax>687</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>149</xmin>
+            <ymin>125</ymin>
+            <xmax>305</xmax>
+            <ymax>629</ymax>
+        </bndbox>
+    </object>
+</annotation>
