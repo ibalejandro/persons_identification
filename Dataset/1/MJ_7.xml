@@ -1,0 +1,23 @@
+<annotation>
+    <folder>1</folder>
+    <filename>MJ_7.jpeg</filename>
+    <size>
+        <width>750</width>
+        <height>737</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MJ</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>149</xmin>
+            <ymin>7</ymin>
+            <xmax>585</xmax>
+            <ymax>737</ymax>
+        </bndbox>
+    </object>
+</annotation>

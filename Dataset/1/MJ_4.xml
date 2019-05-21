@@ -1,0 +1,36 @@
+<annotation>
+    <folder>1</folder>
+    <filename>MJ_4.jpeg</filename>
+    <size>
+        <width>960</width>
+        <height>1280</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MJ</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>409</xmin>
+            <ymin>527</ymin>
+            <xmax>626</xmax>
+            <ymax>1044</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>HJ</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>250</xmin>
+            <ymin>434</ymin>
+            <xmax>340</xmax>
+            <ymax>781</ymax>
+        </bndbox>
+    </object>
+</annotation>

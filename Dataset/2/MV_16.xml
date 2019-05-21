@@ -1,0 +1,36 @@
+<annotation>
+    <folder>2</folder>
+    <filename>MV_16.jpg</filename>
+    <size>
+        <width>3096</width>
+        <height>4128</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>HV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1079</xmin>
+            <ymin>1199</ymin>
+            <xmax>1272</xmax>
+            <ymax>1630</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>18</xmin>
+            <ymin>1147</ymin>
+            <xmax>515</xmax>
+            <ymax>2409</ymax>
+        </bndbox>
+    </object>
+</annotation>

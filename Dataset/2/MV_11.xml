@@ -1,0 +1,23 @@
+<annotation>
+    <folder>2</folder>
+    <filename>MV_11.jpeg</filename>
+    <size>
+        <width>960</width>
+        <height>1280</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>290</xmin>
+            <ymin>190</ymin>
+            <xmax>886</xmax>
+            <ymax>1088</ymax>
+        </bndbox>
+    </object>
+</annotation>

@@ -1,0 +1,36 @@
+<annotation>
+    <folder>2</folder>
+    <filename>MV_25.jpg</filename>
+    <size>
+        <width>1280</width>
+        <height>962</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>648</xmin>
+            <ymin>239</ymin>
+            <xmax>1280</xmax>
+            <ymax>962</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>8</xmin>
+            <ymin>210</ymin>
+            <xmax>647</xmax>
+            <ymax>962</ymax>
+        </bndbox>
+    </object>
+</annotation>

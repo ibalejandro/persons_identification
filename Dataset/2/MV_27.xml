@@ -1,0 +1,36 @@
+<annotation>
+    <folder>2</folder>
+    <filename>MV_27.jpg</filename>
+    <size>
+        <width>980</width>
+        <height>1224</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>382</xmin>
+            <ymin>159</ymin>
+            <xmax>947</xmax>
+            <ymax>1224</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>HV</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>250</xmin>
+            <ymin>356</ymin>
+            <xmax>320</xmax>
+            <ymax>510</ymax>
+        </bndbox>
+    </object>
+</annotation>

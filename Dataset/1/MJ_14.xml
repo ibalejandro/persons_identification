@@ -1,0 +1,23 @@
+<annotation>
+    <folder>1</folder>
+    <filename>MJ_14.jpg</filename>
+    <size>
+        <width>1280</width>
+        <height>853</height>
+        <depth>3</depth>
+    </size>
+    <segmented>0</segmented>
+    <object>
+        <name>MJ</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>726</xmin>
+            <ymin>45</ymin>
+            <xmax>1214</xmax>
+            <ymax>853</ymax>
+        </bndbox>
+    </object>
+</annotation>
