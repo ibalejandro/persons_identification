@@ -3,16 +3,115 @@ import os
 import sys
 import random
 import shutil
-
 import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from collections import defaultdict
+import xml.etree.ElementTree as ET
+
+import xml.etree.ElementTree as ET
+
+
+def read_content(xml_file: str):
+
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    list_with_all_boxes = []
+
+    for boxes in root.iter('object'):
+
+        filename = root.find('filename').text
+
+        ymin, xmin, ymax, xmax = None, None, None, None
+
+        for box in boxes.findall("bndbox"):
+            ymin = int(box.find("ymin").text)
+            xmin = int(box.find("xmin").text)
+            ymax = int(box.find("ymax").text)
+            xmax = int(box.find("xmax").text)
+
+        list_with_single_boxes = [xmin, ymin, xmax, ymax]
+        list_with_all_boxes.append(list_with_single_boxes)
+
+    return filename, list_with_all_boxes
+
+name, boxes = read_content("/Users/anita/.keras/datasets/Dataset/4/HV_20.xml")
+
 
 def load_data(_url,_filename, _extract = True):
     zip_dir = tf.keras.utils.get_file(_filename, origin=_url, extract=_extract)
     return zip_dir
+    
+def find_sources(data_dir, exclude_dirs=None, file_ext='.jpg', shuffle=True):
+    """Find all files with its label.
+
+    This function assumes that data_dir is set up in the following format:
+    data_dir/
+        - label 1/
+            - file1.ext
+            - file2.ext
+            - ...
+        - label 2/
+        - .../
+    Args:
+        data_dir (str): the directory with the data sources in the format
+            specified above.
+        exclude_dirs (set): A set or iterable with the name of some directories
+            to exclude. Defaults to None.
+        file_ext (str): Defaults to '.JPG'
+        shuffle (bool): whether to shuffle the resulting list. Defaults to True
+    
+    Returns:
+        A list of (lable_id, filepath) pairs.
+        
+    """
+    if exclude_dirs is None:
+        exclude_dirs = set()
+    if isinstance(exclude_dirs, (list, tuple)):
+        exclude_dirs = set(exclude_dirs)
+
+    sources = [
+        (os.path.join(data_dir, label_dir, name), int(label_dir),name.split('.')[0],os.path.join(data_dir, label_dir))
+        for label_dir in os.listdir(data_dir) 
+        for name in os.listdir(os.path.join(data_dir, label_dir)) 
+        if label_dir not in exclude_dirs and name.endswith(file_ext)]
+
+    random.shuffle(sources)
+
+    return sources 
+
+
+def snipping_images(sources,pascalvoc):
+    e = ET.fromstring(response.content)
+    pass
+
+def prepare_dataset(data_dir, exclude_dirs=None):
+    
+    sources = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.jpeg')
+    pascalvoc = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.xml')
+
+    pd.DataFrame(sources).merge(pd.DataFrame(pascalvoc),how='left', left_on = [''])
+    
+    fn = lambda x: str(hash(x) % ((sys.maxsize + 1) * 2)) + '.jpg'
+    names = [fn(name) for name in filepaths]
+    splits = ['train' if random.random() <= 0.7 else 'valid' for _ in names]
+    metadata = pd.DataFrame({'label': labels, 'image_name': names, 'split': splits})
+    metadata.to_csv('metadata.csv', index=False)
+  
+    
+    os.makedirs('image_files', exist_ok=True)
+    for name, fpath in zip(names, filepaths):
+        #print(fpath, name)
+        try:
+            shutil.copy(fpath, os.path.join('image_files', name))
+        except Exception as e:
+            
+            raise e
+
+
+
 
 def read_pascalvoc(filepath):
     pass
@@ -77,6 +176,7 @@ if __name__ == "__main__":
     _URL = 'https://s3-sa-east-1.amazonaws.com/darkanita/DatasetPeople.zip'
     _Filename ='DatasetPeople.zip'
     zip_dir = load_data(_URL,_Filename)
+    data_dir = zip_dir[:-10]
     print(zip_dir)
     prepare_dataset('/Users/anita/.keras/datasets/DatasetPeople')
     
