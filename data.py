@@ -10,37 +10,8 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
-import xml.etree.ElementTree as ET
-
-
-def read_content(xml_file: str):
-
-    tree = ET.parse(xml_file)
-    root = tree.getroot()
-
-    list_with_all_boxes = []
-
-    for boxes in root.iter('object'):
-
-        filename = root.find('filename').text
-
-        ymin, xmin, ymax, xmax = None, None, None, None
-
-        for box in boxes.findall("bndbox"):
-            ymin = int(box.find("ymin").text)
-            xmin = int(box.find("xmin").text)
-            ymax = int(box.find("ymax").text)
-            xmax = int(box.find("xmax").text)
-
-        list_with_single_boxes = [xmin, ymin, xmax, ymax]
-        list_with_all_boxes.append(list_with_single_boxes)
-
-    return filename, list_with_all_boxes
-
-name, boxes = read_content("/Users/anita/.keras/datasets/Dataset/4/HV_20.xml")
-
-
 def load_data(_url,_filename, _extract = True):
+
     zip_dir = tf.keras.utils.get_file(_filename, origin=_url, extract=_extract)
     return zip_dir
     
@@ -73,7 +44,7 @@ def find_sources(data_dir, exclude_dirs=None, file_ext='.jpg', shuffle=True):
         exclude_dirs = set(exclude_dirs)
 
     sources = [
-        (os.path.join(data_dir, label_dir, name), int(label_dir),name.split('.')[0],os.path.join(data_dir, label_dir))
+        (os.path.join(data_dir, label_dir, name), int(label_dir))
         for label_dir in os.listdir(data_dir) 
         for name in os.listdir(os.path.join(data_dir, label_dir)) 
         if label_dir not in exclude_dirs and name.endswith(file_ext)]
@@ -82,25 +53,73 @@ def find_sources(data_dir, exclude_dirs=None, file_ext='.jpg', shuffle=True):
 
     return sources 
 
+def read_pascalvoc(xml_file: str):
 
-def snipping_images(sources,pascalvoc):
-    e = ET.fromstring(response.content)
-    pass
+    tree = ET.parse(xml_file)
+    root = tree.getroot()
+
+    list_with_all_boxes = []
+
+    for boxes in root.iter('object'):
+
+        filename = root.find('filename').text
+
+        ymin, xmin, ymax, xmax = None, None, None, None
+
+        for box in boxes.findall("bndbox"):
+            ymin = int(box.find("ymin").text)
+            xmin = int(box.find("xmin").text)
+            ymax = int(box.find("ymax").text)
+            xmax = int(box.find("xmax").text)
+
+        list_with_single_boxes = [xmin, ymin, xmax, ymax]
+        list_with_all_boxes.append(list_with_single_boxes)
+
+    return filename, list_with_all_boxes
+
+def crop_images(pascalvoc):
+    #filepath = '/Users/anita/.keras/datasets/Dataset/4/HV_20.jpeg'
+    name, boxes = read_pascalvoc(pascalvoc)
+    filepath = pascalvoc[:-3]+name.split('.')[-1]
+    exists = os.path.isfile(filepath)
+    if exists:
+        # Store configuration file values
+        img = tf.io.read_file(filepath)
+        img = tf.io.decode_jpeg(img)
+        #pascalvoc = '/Users/anita/.keras/datasets/Dataset/4/HV_20.xml'
+        name, boxes = read_pascalvoc(pascalvoc)
+        xmin , ymin , xmax , ymax = boxes[0]
+        offset_height = ymin
+        offset_width = xmin
+        target_height = ymax - ymin
+        target_width = xmax - xmin
+        cropped_image_tensor = tf.image.crop_to_bounding_box(img, offset_height, offset_width, target_height, target_width)
+        output_image = tf.image.encode_jpeg(cropped_image_tensor)
+        file_name = tf.constant(pascalvoc[:-3]+'jpeg')
+        print('OK : ' + filepath)
+        file = tf.io.write_file(file_name, output_image)
+    else:
+        # Keep presets
+        print('BAD : ' + filepath)
+    return
 
 def prepare_dataset(data_dir, exclude_dirs=None):
+    pascalvoc = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.xml')
+    filepaths, labels = zip(*pascalvoc)
+    
+    for pascal in filepaths:
+        crop_images(pascal)
+        print(pascal)
     
     sources = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.jpeg')
-    pascalvoc = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.xml')
-
-    pd.DataFrame(sources).merge(pd.DataFrame(pascalvoc),how='left', left_on = [''])
+    filepaths, labels = zip(*sources)
     
-    fn = lambda x: str(hash(x) % ((sys.maxsize + 1) * 2)) + '.jpg'
+    fn = lambda x: str(hash(x) % ((sys.maxsize + 1) * 2)) + '.jpeg'
     names = [fn(name) for name in filepaths]
     splits = ['train' if random.random() <= 0.7 else 'valid' for _ in names]
     metadata = pd.DataFrame({'label': labels, 'image_name': names, 'split': splits})
     metadata.to_csv('metadata.csv', index=False)
   
-    
     os.makedirs('image_files', exist_ok=True)
     for name, fpath in zip(names, filepaths):
         #print(fpath, name)
@@ -111,67 +130,6 @@ def prepare_dataset(data_dir, exclude_dirs=None):
             raise e
 
 
-
-
-def read_pascalvoc(filepath):
-    pass
-
-def preparate_dataset():
-    #image,label = read_pascalvoc(image)
-    raise NotImplementedError
-
-def preprocess_data():
-    pass
-
-def augment_image():
-    pass
-
-def make_dataset(sources, training=False, batch_size=1,
-    num_epochs=1, num_parallel_calls=1, shuffle_buffer_size=None):
-    """
-    Returns an operation to iterate over the dataset specified in sources
-
-    Args:
-        sources (list): A list of (lable_id, filepath) pairs.
-        training (bool): whether to apply certain processing steps
-            defined only in training mode (e.g. shuffle).
-        batch_size (int): number of elements the resulting tensor
-            should have.
-        num_epochs (int): Number of epochs to repeat the dataset.
-        num_parallel_calls (int): Number of parallel calls to use in
-            map operations.
-        shuffle_buffer_size (int): Number of elements from this dataset
-            from which the new dataset will sample.
-
-    Returns:
-        A tf.data.Dataset object. It will return a tuple images of shape
-        [N, H, W, CH] and labels shape [N, 1].
-    """
-    def load(row):
-        filepath = row['image']
-        img = tf.io.read_file(filepath)
-        img = tf.io.decode_jpeg(img)
-        return img, row['label']
-
-    if shuffle_buffer_size is None:
-        shuffle_buffer_size = batch_size*4
-
-    images, labels = zip(*sources)
-    ds = tf.data.Dataset.from_tensor_slices({
-        'image': list(images), 'label': list(labels)}) 
-
-    if training:
-        ds = ds.shuffle(shuffle_buffer_size)
-    
-    ds = ds.map(load, num_parallel_calls=num_parallel_calls)
-    #ds = ds.map(lambda x,y: (preprocess_image(x), y))
-    #ds = ds.map(lambda x,y: (augmentation_image(x), y))
-    ds = ds.repeat(count=num_epochs)
-    ds = ds.batch(batch_size=batch_size)
-    ds = ds.prefetch(1)
-
-    return ds
-
 if __name__ == "__main__":
     _URL = 'https://s3-sa-east-1.amazonaws.com/darkanita/DatasetPeople.zip'
     _Filename ='DatasetPeople.zip'
@@ -179,4 +137,3 @@ if __name__ == "__main__":
     data_dir = zip_dir[:-10]
     print(zip_dir)
     prepare_dataset('/Users/anita/.keras/datasets/DatasetPeople')
-    
