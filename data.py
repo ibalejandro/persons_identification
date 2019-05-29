@@ -11,7 +11,6 @@ from collections import defaultdict
 import xml.etree.ElementTree as ET
 
 def load_data(_url,_filename, _extract = True):
-
     zip_dir = tf.keras.utils.get_file(_filename, origin=_url, extract=_extract)
     return zip_dir
     
@@ -88,28 +87,35 @@ def crop_images(pascalvoc):
         img = tf.io.decode_jpeg(img)
         #pascalvoc = '/Users/anita/.keras/datasets/Dataset/4/HV_20.xml'
         name, boxes = read_pascalvoc(pascalvoc)
-        xmin , ymin , xmax , ymax = boxes[0]
-        offset_height = ymin
-        offset_width = xmin
-        target_height = ymax - ymin
-        target_width = xmax - xmin
-        cropped_image_tensor = tf.image.crop_to_bounding_box(img, offset_height, offset_width, target_height, target_width)
-        output_image = tf.image.encode_jpeg(cropped_image_tensor)
-        file_name = tf.constant(pascalvoc[:-3]+'jpeg')
-        print('OK : ' + filepath)
-        file = tf.io.write_file(file_name, output_image)
+        for idbox in range(0,len(boxes)):
+            """ offset_height: Vertical coordinate of the top-left corner of the result in the input.
+                offset_width: Horizontal coordinate of the top-left corner of the result in the input.
+                target_height: Height of the result.
+                target_width: Width of the result.
+            """
+            xmin , ymin , xmax , ymax = boxes[idbox]
+            offset_height = ymin
+            offset_width = xmin
+            target_height = ymax - ymin
+            target_width = xmax - xmin
+        
+            cropped_image_tensor = tf.image.crop_to_bounding_box(img, offset_height, offset_width, target_height, target_width)
+            output_image = tf.image.encode_jpeg(cropped_image_tensor)
+            file_name = tf.constant(pascalvoc[:-4]+str(idbox)+'.jpeg')
+            print('OK : ' + filepath)
+            file = tf.io.write_file(file_name, output_image)
     else:
         # Keep presets
         print('BAD : ' + filepath)
-    return
 
 def prepare_dataset(data_dir, exclude_dirs=None):
     pascalvoc = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.xml')
     filepaths, labels = zip(*pascalvoc)
     
     for pascal in filepaths:
+        print('Procesar : ' + pascal)
         crop_images(pascal)
-        print(pascal)
+        
     
     sources = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.jpeg')
     filepaths, labels = zip(*sources)
@@ -126,7 +132,6 @@ def prepare_dataset(data_dir, exclude_dirs=None):
         try:
             shutil.copy(fpath, os.path.join('image_files', name))
         except Exception as e:
-            
             raise e
 
 
@@ -136,4 +141,8 @@ if __name__ == "__main__":
     zip_dir = load_data(_URL,_Filename)
     data_dir = zip_dir[:-10]
     print(zip_dir)
-    prepare_dataset('/Users/anita/.keras/datasets/DatasetPeople')
+    prepare_dataset(data_dir)
+
+
+    #### Metadata 1 una imagen por clase
+
