@@ -128,6 +128,16 @@ def crop_images(pascalvoc):
     else:
         print('NOT_EXISTS : ' + filepath)
 
+def split_dataset(ds_len):
+    test =  int(ds_len * 0.2)
+    split = ['test'] * test
+    train = int(ds_len * 0.7)
+    split.extend(['train'] * train)
+    val = ds_len - (test + train)
+    split.extend(['val'] * val)
+    random.shuffle(split)
+    return split
+
 def prepare_dataset(data_dir, exclude_dirs=None):
     pascalvoc = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.xml')
     filepaths, labels = zip(*pascalvoc)
@@ -157,11 +167,11 @@ def prepare_dataset(data_dir, exclude_dirs=None):
     labels = tuple(labels)
     fn = lambda x: str(hash(x) % ((sys.maxsize + 1) * 2)) + '.jpeg' 
     names = [fn(name) for name in filepaths]
-    splits = ['train' if random.random() <= 0.7 else 'valid' for _ in names]
+    #splits = ['train' if random.random() <= 0.6 else 'valid' for _ in names]
+    splits = split_dataset(len(names))
     metadata = pd.DataFrame({'filename':filepaths,'label': labels, 'image_name': names, 'split': splits})
-    
     unique_labels = {0 : 'No hay persona', 1 : 'Mujer Joven', 2 : 'Mujer Adulta', 3 : 'Hombre Joven', 4 : 'Hombre Viejo'}
-    with open('persons_identification/labels_map.json','w') as f:
+    with open('labels_map.json','w') as f:
         json.dump(unique_labels,f) 
 
     metadata.to_csv('metadata.csv', index=False)
@@ -179,8 +189,7 @@ def preprocess_image(image,img_shape=32):
     image = image / 255.0
     return image
   
-def make_dataset(sources, training=False, batch_size=1,
-num_epochs=1, num_parallel_calls=1, shuffle_buffer_size=None, img_shape=32):
+def make_dataset(sources, training=False, batch_size=1, num_epochs=1, num_parallel_calls=1, shuffle_buffer_size=None, img_shape=32):
     """
     Returns an operation to iterate over the dataset specified in sources
 
