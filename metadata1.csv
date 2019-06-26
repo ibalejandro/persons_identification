@@ -1,0 +1,6 @@
+filename,image_name,label,split
+/Users/anita/.keras/datasets/Dataset/0/NP_30.jpeg,3143727241971158377.jpeg,0.0,train
+/Users/anita/.keras/datasets/Dataset/1/MJ_11_0.jpeg,6295950758442480259.jpeg,1.0,val
+/Users/anita/.keras/datasets/Dataset/2/MV_30_1.jpeg,1614112179339000965.jpeg,2.0,train
+/Users/anita/.keras/datasets/Dataset/3/HJ_8_1.jpeg,10809104123458595098.jpeg,3.0,train
+/Users/anita/.keras/datasets/Dataset/4/HV_4_0.jpeg,15585520429210449198.jpeg,4.0,train

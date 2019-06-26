@@ -10,6 +10,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 import json
+import numpy as np
 
 def load_data(_url,_filename, _extract = True):
     zip_dir = tf.keras.utils.get_file(_filename, origin=_url, extract=_extract)
@@ -17,7 +18,6 @@ def load_data(_url,_filename, _extract = True):
     
 def find_sources(data_dir, exclude_dirs=None, file_ext='.jpg', shuffle=True):
     """Find all files with its label.
-
     This function assumes that data_dir is set up in the following format:
     data_dir/
         - label 1/
@@ -175,6 +175,13 @@ def prepare_dataset(data_dir, exclude_dirs=None):
         json.dump(unique_labels,f) 
 
     metadata.to_csv('metadata.csv', index=False)
+    metadata1 = pd.DataFrame()
+    metadata1 = metadata1.append(metadata[metadata['label']==0].iloc[0],ignore_index=True)
+    metadata1 = metadata1.append(metadata[metadata['label']==1].iloc[0],ignore_index=True)
+    metadata1 = metadata1.append(metadata[metadata['label']==2].iloc[0],ignore_index=True)
+    metadata1 = metadata1.append(metadata[metadata['label']==3].iloc[0],ignore_index=True)
+    metadata1 = metadata1.append(metadata[metadata['label']==4].iloc[0],ignore_index=True)
+    metadata1.to_csv('metadata1.csv', index=False)
   
     os.makedirs('image_files', exist_ok=True)
     for name, fpath in zip(names, filepaths):

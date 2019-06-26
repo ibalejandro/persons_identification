@@ -18,7 +18,7 @@ def main(config):
 
     #Load metadata
     metadata = pd.read_csv(data['metadata'])
-    #metadata1 = pd.read_csv(data['metadata1'])
+    metadata1 = pd.read_csv(data['metadata1'])
 
     train_sources = build_sources_from_metadata(metadata, 'image_files')
     valid_sources = build_sources_from_metadata(metadata, 'image_files', mode='val')
