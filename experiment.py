@@ -1,8 +1,9 @@
 import json
 import datetime
 import pandas as pd
-from model import *
 from data import *
+from model import *
+
 
 models = {
     "lineal" : get_lineal_model,
