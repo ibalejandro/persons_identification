@@ -1,0 +1,12 @@
+{
+    "batch_size" : 10,
+    "model" : "lineal",
+    "image_size" : 32,
+    "learning_rate" : 0.004,
+    "validation_steps" : 2,
+    "num_class" : 5,
+    "epochs_one" : 5,
+    "epochs" : 10,
+    "metadata" : "metadata.csv",
+    "metadata1" : "metadata1.csv"
+}

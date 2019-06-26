@@ -37,3 +37,9 @@ def get_alexnet_model(num_class,img_shape=224,channels=3):
     model.add(tf.keras.layers.Dropout(0.4))
     model.add(tf.keras.layers.Dense(num_class, activation='softmax'))
     return model
+
+def get_vgg16_model(num_class,img_shape=224,channels=3):
+    return None
+
+def get_google_net_model(num_class,img_shape=224,channels=3):
+    return None

@@ -260,3 +260,36 @@ def imshow_batch_of_three(batch):
         img = image_batch[i, ...]
         axarr[i].imshow(img)
         axarr[i].set(xlabel='label = {}'.format(data[str(label_batch[i])]))
+
+def augment_image(image):
+    return image
+
+def draw_result(H, N, name, val = False):
+    fig, axs = plt.subplots(2)
+    fig.suptitle('Training Loss and Accuracy on Dataset')
+    axs[0].plot(np.arange(0, N), H.history["loss"], label="train_loss")
+    if(val):
+        axs[0].plot(np.arange(0, N), H.history["val_loss"], label="val_loss")
+    axs[0].set_xlabel("Epoch #")
+    axs[0].set_ylabel("Loss")
+    axs[0].legend(loc="lower left")
+    axs[1].plot(np.arange(0, N), H.history["accuracy"], label="train_acc")
+    if(val):
+        axs[1].plot(np.arange(0, N), H.history["val_accuracy"], label="val_acc")
+    axs[1].set_xlabel("Epoch #")
+    axs[1].set_ylabel("Accuracy")
+    axs[1].legend(loc="lower left")
+    plt.savefig(name + ".png")
+
+if __name__ == '__main__':
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Prepare dataset")
+
+    parser.add_argument('--dir', '-d',
+        help="directory with images"
+    )
+    
+    args = parser.parse_args()
+    prepare_dataset(args.dir)
