@@ -41,6 +41,9 @@ def main(config, model_name):
     model.compile(loss=[tf.losses.SparseCategoricalCrossentropy()]*conf['target'],
             optimizer=tf.optimizers.Adam(conf['learning_rate']),
             metrics=['accuracy'])
+    
+    logdir = os.path.join("logs", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+    tensorboard_callback = tf.keras.callbacks.TensorBoard(logdir, histogram_freq=1)
 
     #Fit model
     history_one = model.fit(x=train_one_dataset, epochs=conf['epochs_one'])
