@@ -111,7 +111,8 @@ def get_google_net_model(num_class,img_shape=224,channels=3):
     x = tf.keras.layers.Conv2D(64, (7, 7), padding='same', strides=(2, 2), activation='relu', name='conv_1_7x7/2')(input_layer)
     x = tf.keras.layers.MaxPool2D((3, 3), padding='same', strides=(2, 2), name='max_pool_1_3x3/2')(x)
     x = tf.keras.layers.Conv2D(64, (1, 1), padding='same', strides=(1, 1), activation='relu', name='conv_2a_3x3/1')(x)
-    x = tf.keras.layers.Conv2D(192, (3, 3), padding='same', strides=(1, 1), activation='relu', name='conv_2b_3x3/1')(x)
+    x = tf.keras.layers.Conv2D(192, (3, 3), padding='same', strides=(1, 1), ac
+    tivation='relu', name='conv_2b_3x3/1')(x)
     x = tf.keras.layers.MaxPool2D((3, 3), padding='same', strides=(2, 2), name='max_pool_2_3x3/2')(x)
 
     x = inception_module(x, 64, 96, 128, 16, 32, 32)
