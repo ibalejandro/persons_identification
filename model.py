@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+
 def get_lineal_model(num_class,img_shape=32,channels=3):
     model = tf.keras.Sequential()
     model.add(tf.keras.layers.Flatten(input_shape=(img_shape,img_shape,channels)))

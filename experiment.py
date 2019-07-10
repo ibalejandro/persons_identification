@@ -3,6 +3,7 @@ import datetime
 import pandas as pd
 from model import *
 from data import *
+from tensorflow.keras.callbacks import tensorboard
 
 models = {
     "lineal" : get_lineal_model,
@@ -42,14 +43,10 @@ def main(config, model_name):
             optimizer=tf.optimizers.Adam(conf['learning_rate']),
             metrics=['accuracy'])
 
-    os.makedirs('logs', exist_ok=True)
-    logdir = os.path.join("logs", datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
-    tensorboard_callback = tf.keras.callbacks.TensorBoard(logdir, histogram_freq=1)
-
     #Fit model
     history_one = model.fit(x=train_one_dataset, epochs=conf['epochs_one'])
     history = model.fit(x=train_dataset, epochs=conf['epochs'],
-        validation_data=valid_dataset, validation_steps=conf['validation_steps'])
+        validation_data=valid_dataset, validation_steps=conf['validation_steps'],callbacks=[tensorboard()])
     
     #Save learning curve
     draw_result(history_one, conf['epochs_one'], model_name + "_one_" + str(datetime.date.today()))
