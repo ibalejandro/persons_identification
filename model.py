@@ -1,5 +1,7 @@
 import tensorflow as tf
 
+def build_standard_cnn():
+    pass
 
 def get_lineal_model(num_class,img_shape=32,channels=3):
     model = tf.keras.Sequential()
