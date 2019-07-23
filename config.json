@@ -6,7 +6,7 @@
         "validation_steps": 2,
         "num_class": 5,
         "target": 1,
-        "epochs_one": 50,
+        "epochs_one": 10,
         "epochs": 100,
         "metadata": "metadata.csv",
         "metadata1": "metadata1.csv"
@@ -18,7 +18,7 @@
         "validation_steps": 2,
         "num_class": 5,
         "target": 1,
-        "epochs_one": 50,
+        "epochs_one": 10,
         "epochs": 100,
         "metadata": "metadata.csv",
         "metadata1": "metadata1.csv"
@@ -30,7 +30,7 @@
         "validation_steps": 2,
         "num_class": 5,
         "target": 1,
-        "epochs_one": 50,
+        "epochs_one": 10,
         "epochs": 100,
         "metadata": "metadata.csv",
         "metadata1": "metadata1.csv"
@@ -42,7 +42,7 @@
         "validation_steps": 2,
         "num_class": 5,
         "target": 1,
-        "epochs_one": 50,
+        "epochs_one": 10,
         "epochs": 100,
         "metadata": "metadata.csv",
         "metadata1": "metadata1.csv"
@@ -54,7 +54,7 @@
         "validation_steps": 2,
         "num_class": 5,
         "target": 3,
-        "epochs_one": 50,
+        "epochs_one": 10,
         "epochs": 100,
         "metadata": "metadata.csv",
         "metadata1": "metadata1.csv"
