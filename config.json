@@ -31,7 +31,7 @@
         "num_class": 5,
         "target": 1,
         "epochs_one": 10,
-        "epochs": 100,
+        "epochs": 20,
         "metadata": "metadata.csv",
         "metadata1": "metadata1.csv"
     },
