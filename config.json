@@ -14,7 +14,7 @@
     "letnet": {
         "batch_size": 10,
         "image_size": 32,
-        "learning_rate": 0.003,
+        "learning_rate": 0.0001,
         "validation_steps": 2,
         "num_class": 5,
         "target": 1,
