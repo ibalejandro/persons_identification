@@ -30,11 +30,11 @@ def main(config, model_name):
 
     #Make dataset
     train_one_dataset = make_dataset(train_one_sources, training=True,batch_size=conf['batch_size'], 
-    num_epochs=conf['epochs_one'],num_parallel_calls=3, img_shape=conf['image_size'])
+    num_epochs=conf['epochs_one'],num_parallel_calls=3, img_shape=conf['image_size'], target=conf['target'])
     train_dataset = make_dataset(train_sources, training=True,batch_size=conf['batch_size'], 
-    num_epochs=conf['epochs'],num_parallel_calls=3, img_shape=conf['image_size'])
+    num_epochs=conf['epochs'],num_parallel_calls=3, img_shape=conf['image_size'], target=conf['target'])
     valid_dataset = make_dataset(valid_sources, training=False,batch_size=conf['batch_size'], 
-    num_epochs=conf['epochs'],num_parallel_calls=3, img_shape=conf['image_size'])
+    num_epochs=conf['epochs'],num_parallel_calls=3, img_shape=conf['image_size'], target=conf['target'])
 
 
     #Load model

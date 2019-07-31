@@ -205,7 +205,7 @@ def preprocess_image(image,img_shape=32):
     image = image / 255.0
     return image
   
-def make_dataset(sources, training=False, batch_size=1, num_epochs=1, num_parallel_calls=1, shuffle_buffer_size=None, img_shape=32):
+def make_dataset(sources, training=False, batch_size=1, num_epochs=1, num_parallel_calls=1, shuffle_buffer_size=None, img_shape=32, target = 1):
     """
     Returns an operation to iterate over the dataset specified in sources
 
