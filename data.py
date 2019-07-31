@@ -138,6 +138,15 @@ def split_dataset(ds_len):
     random.shuffle(split)
     return split
 
+def augment_image(image):
+    image = tf.image.random_brightness(image, max_delta=0.2)
+    image = tf.image.random_contrast(image, lower=0.5, upper=1.5)
+    image = tf.image.random_flip_left_right(image)
+    image = tf.image.random_flip_up_down(image)
+    image = tf.image.random_hue(image, max_delta=0.2)
+    image = tf.image.random_saturation(image, lower=0.5, upper=1.5)
+    return image
+
 def prepare_dataset(data_dir, exclude_dirs=None):
     pascalvoc = find_sources(data_dir, exclude_dirs=exclude_dirs, file_ext='.xml')
     filepaths, labels = zip(*pascalvoc)
@@ -235,6 +244,11 @@ def make_dataset(sources, training=False, batch_size=1, num_epochs=1, num_parall
     
     ds = ds.map(load, num_parallel_calls=num_parallel_calls)
     ds = ds.map(lambda x,y: (preprocess_image(x,img_shape), y))
+
+    if training:
+        ds = ds.map(lambda x,y: (augment_image(x), y))
+
+    ds = ds.map(lambda x,y: (x, tuple([y]*target) if target > 1 else y))    
     ds = ds.repeat(count=num_epochs)
     ds = ds.batch(batch_size=batch_size)
     ds = ds.prefetch(1)

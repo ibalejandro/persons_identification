@@ -44,7 +44,7 @@ def main(config, model_name):
             metrics=['accuracy'])
 
     #Fit model
-    #history_one = model.fit(x=train_one_dataset, epochs=conf['epochs_one'])
+    history_one = model.fit(x=train_one_dataset, epochs=conf['epochs_one'])
     history = model.fit(x=train_dataset, epochs=conf['epochs'],
         validation_data=valid_dataset, validation_steps=conf['validation_steps'],callbacks=[TensorBoard()])
     
